@@ -36,3 +36,23 @@ export async function save(email,password){
     });
     fs.writeFileSync(filePath, JSON.stringify(data));
 }
+
+
+  export  async function update(email,password, changePass){
+    const data = getAll();
+    const found = getByEmail(email);
+    console.log(found)
+    if(!found){
+        throw new error("user is not  exixst")
+    }
+      const valid = await getPassword(found.password, password)
+    if(!valid){
+        throw new error(" password is not match");
+
+    }
+    const hashpassword = await hash(changePass , 12);
+    const index = data.findIndex( user => user.id === found.id );
+    console.log(index)
+      data.splice(index , 0, data[index].password = hashpassword)
+      fs.writeFileSync(filePath, JSON.stringify(data))
+}

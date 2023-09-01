@@ -9,15 +9,15 @@ import { render } from "react-dom";
 
 export default function SignIn () {
     const router = useRouter();
-    console.log(router)
+    //console.log(router)
     const { status } = useSession()   
     if(status === "authenticated"){
-        router.push("/profile")
+        router.replace("/profile")
     }
   
 async function addUser(email,password){
         const resp = await signIn("credentials" ,{redirect: false,  email, password});
-        console.log(resp);
+       // console.log(resp);
               
               
           }
